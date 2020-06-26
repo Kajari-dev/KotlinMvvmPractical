@@ -15,7 +15,7 @@ data class UserResponse(
 
 	@field:SerializedName("status")
 	val status: Boolean? = null
-):Serializable{
+):Serializable {
 	companion object {
 		val CALLBACK: DiffUtil.ItemCallback<UsersItem?> = object : DiffUtil.ItemCallback<UsersItem?>() {
 			override fun areItemsTheSame(usersItem: UsersItem, t1: UsersItem): Boolean {

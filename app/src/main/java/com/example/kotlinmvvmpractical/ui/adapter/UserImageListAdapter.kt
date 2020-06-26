@@ -13,12 +13,12 @@ class UserImageListAdapter(var list: List<String?>?) : RecyclerView.Adapter<User
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserPhotoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view: View = layoutInflater.inflate(R.layout.user_list_item, parent, false)
+        val view: View = layoutInflater.inflate(R.layout.user_image_list_item, parent, false)
         return UserPhotoViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return list?.size!!
+        return list?.size?:0
     }
 
     override fun onBindViewHolder(holder: UserPhotoViewHolder, position: Int) {

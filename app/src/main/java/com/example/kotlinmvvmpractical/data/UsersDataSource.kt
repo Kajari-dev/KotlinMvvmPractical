@@ -9,55 +9,55 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class UsersDataSource : PageKeyedDataSource<Long?, UserResponse?>() {
+class UsersDataSource : PageKeyedDataSource<Int?, UsersItem?>() {
     lateinit var dataService: RetrofitApi
     override fun loadInitial(
-        params: LoadInitialParams<Long?>,
-        callback: LoadInitialCallback<Long?, UserResponse?>
+        params: LoadInitialParams<Int?>,
+        callback: LoadInitialCallback<Int?, UsersItem?>
     ) {
         dataService = RetrofitApi.create()
-        val data: Call<List<UserResponse>> = dataService.getUserData(10,10)
-        data.enqueue(object : Callback<List<UserResponse>> {
+        val data: Call<UserResponse> = dataService.getUserData(10,10)
+        data.enqueue(object : Callback<UserResponse> {
             override fun onResponse(
-                call: Call<List<UserResponse>>,
-                response: Response<List<UserResponse>>
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
             ) {
-                val userList: List<UserResponse>? = response.body()
+                val userList: List<UsersItem>? = response.body()?.data?.users as List<UsersItem>?
                 if (userList != null) {
-                    callback.onResult(userList, null, 2.toLong())
+                    callback.onResult(userList, null, 2)
                 }
             }
 
-            override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.d("Failure",t.message)
             }
         })
     }
 
     override fun loadBefore(
-        params: LoadParams<Long?>,
-        callback: LoadCallback<Long?, UserResponse?>
+        params: LoadParams<Int?>,
+        callback: LoadCallback<Int?, UsersItem?>
     ) {
     }
 
     override fun loadAfter(
-        params: LoadParams<Long?>,
-        callback: LoadCallback<Long?, UserResponse?>) {
+        params: LoadParams<Int?>,
+        callback: LoadCallback<Int?, UsersItem?>) {
         dataService = RetrofitApi.create()
-        val data: Call<List<UserResponse>> = dataService.getUserData(10,10)
-        data.enqueue(object : Callback<List<UserResponse>> {
+        val data: Call<UserResponse> = dataService.getUserData(10,10)
+        data.enqueue(object : Callback<UserResponse> {
 
             override fun onResponse(
-                call: Call<List<UserResponse>>,
-                response: Response<List<UserResponse>>
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
             ) {
-                val userList: List<UserResponse>? = response.body()
+                val userList: List<UsersItem>? = response.body()?.data?.users as List<UsersItem>
                 if (userList != null) {
-                    callback.onResult(userList, (params.key.toLong() + 1))
+                    callback.onResult(userList, (params.key + 1))
                 }
             }
 
-            override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.d("Failure",t.message)
             }
         })

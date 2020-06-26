@@ -22,7 +22,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(true)
             .setInitialLoadSizeHint(10)
-            .setPageSize(20)
+            .setPageSize(10)
             .setPrefetchDistance(4)
             .build()
         executor = Executors.newFixedThreadPool(5)

@@ -39,8 +39,8 @@ class MainFragment : Fragment() {
 
         viewModel.pagedListLiveData.observe(viewLifecycleOwner,
             Observer<PagedList<UsersItem>> { usersResponse ->
-                val usersAdapter =  UserAdapter()
-                usersAdapter.submitList(usersResponse)
+                val usersAdapter = activity?.let { UserAdapter(it) }
+                usersAdapter?.submitList(usersResponse)
                 rvMain.adapter = usersAdapter
             });
     }

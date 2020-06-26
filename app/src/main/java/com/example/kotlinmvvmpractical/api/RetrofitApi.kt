@@ -13,7 +13,7 @@ import retrofit2.http.Query
 
 interface RetrofitApi {
     @GET("api/users")
-    fun getUserData(@Query("offset") offset :Int,@Query("limit") limit :Int): Call<List<UserResponse>>
+    fun getUserData(@Query("offset") offset :Int,@Query("limit") limit :Int): Call<UserResponse>
 
     companion object {
         private const val BASE_URL = "http://sd2-hiring.herokuapp.com/"
